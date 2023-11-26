@@ -15,7 +15,7 @@ import FridgeScreen from "./screens/FridgeScreen";
 
 const Stack = createNativeStackNavigator();
 
-function InfoScreen() {
+function HelpScreen() {
   return (
     <View style={styles.container}>
       <Text>InfoScreen</Text>
@@ -44,7 +44,7 @@ export default function App() {
       >
         <Stack.Screen name="Title" component={IntroScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Info" component={InfoScreen} />
+        <Stack.Screen name="Help" component={HelpScreen} />
         <Stack.Screen name="Fridge" component={FridgeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
