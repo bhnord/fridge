@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, SafeAreaView, View, StatusBar, Button, TouchableOpacity, ScrollView } from "react-native";
 import ItemComponent from "../components/ItemComponent.js";
 
 let items = [{
@@ -10,41 +10,50 @@ let items = [{
   name: "Blueberry Jam",
   quantity: 1,
   unit: "jars"
-}]
+},
+]
 
 export default function FridgeScreen() {
-  return (
-    <View style={styles.container}>
-      <Text>My Fridge:</Text>
+
+
+
+  //XXX: remove once testing is done
+  for (let i = 0; i < 20; i++) {
+    items.push(
       {
-        items.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        ).map((x) => <ItemComponent key={x.name} item={x} />)
+        name: "Blueberry Jam",
+        quantity: 1,
+        unit: "jars"
       }
-    </View>
+    )
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }} style={styles.flatList}>
+        <Text>My Fridge:</Text>
+        {
+          items.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ).map((x) => <ItemComponent key={x.name} item={x} />)
+        }
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: "block",
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
-  },
-  item: {
-    display: "block",
-    padding: 20,
-    margin: 1,
-    alignItems: "center",
-    borderStyle: "solid",
-    borderColor: "black",
-    borderWidth: 1,
-    width: "90%",
-    borderRadius: 8,
+    paddingTop: StatusBar.currentHeight
   },
   touch: {
     display: "block",
+  },
+  flatList: {
+    width: "100%",
   }
 });
