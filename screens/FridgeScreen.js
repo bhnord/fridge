@@ -1,20 +1,28 @@
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import ItemComponent from "../components/ItemComponent.js";
 
-let j = [{
-    name: "Veggies"
-}, {
-    name: "Proteins"
+let items = [{
+  name: "Cucumbers",
+  quantity: 3,
+  unit: "whole"
+},
+{
+  name: "Blueberry Jam",
+  quantity: 1,
+  unit: "jars"
 }]
 
 export default function FridgeScreen() {
-    return (
-        <View style={styles.container}>
-            <Text>My Fridge:</Text>
-            {
-               j.map((x) => <Text>{x.name}</Text>) 
-            }
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <Text>My Fridge:</Text>
+      {
+        items.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        ).map((x) => <ItemComponent key={x.name} item={x} />)
+      }
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
