@@ -4,16 +4,16 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>Home</Text>
-        <TouchableOpacity style={styles.item} onPress={()=> navigation.navigate("Fridge")}>
-          <Text>See My Fridge</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} onPress={()=> navigation.navigate("Fridge")}>
-          <Text>Recipes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item} onPress={()=> navigation.navigate("Help")}>
-          <Text>Help</Text>
-        </TouchableOpacity>
-     </View>
+      <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("Fridge")}>
+        <Text>See My Fridge</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("Recipes")}>
+        <Text>Recipes</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("Help")}>
+        <Text>Help</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 

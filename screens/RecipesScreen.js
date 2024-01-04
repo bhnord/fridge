@@ -1,29 +1,25 @@
 import { StyleSheet, Text, SafeAreaView, View, StatusBar, Button, TouchableOpacity, ScrollView } from "react-native";
-import ItemComponent from "../components/ItemComponent.js";
+import RecipeComponent from "../components/RecipeComponent.js";
 
 let items = [{
-  name: "Cucumbers",
-  quantity: 3,
-  unit: "whole"
+  name: "Cucumbers Recipe",
+  extras: "dd",
 },
 {
-  name: "Blueberry Jam",
-  quantity: 1,
-  unit: "jars"
+  name: "Blueberry Jam Recipe",
+  extras: "jars"
 },
 ]
 
-export default function FridgeScreen({ navigation }) {
+export default function RecipesScreen() {
 
 
 
-  //XXX: remove once testing is done
   for (let i = 0; i < 20; i++) {
     items.push(
       {
-        name: "Blueberry Jam",
-        quantity: 1,
-        unit: "jars"
+        name: "Blueberry Jam Recipe",
+        extras: "jars"
       }
     )
   }
@@ -33,19 +29,13 @@ export default function FridgeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleBar}>
-        <View style={styles.innerTitle}>
-          <Text>My Fridge:</Text>
-        </View>
-        <View style={styles.innerTitle} />
-        <View style={styles.innerTitle}>
-          <Button title="add item" onPress={() => navigation.navigate("AddItem")} />
-        </View>
+        <Text>Recipes:</Text>
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }} style={styles.flatList}>
         {
           items.sort((a, b) =>
             a.name.localeCompare(b.name)
-          ).map((x) => <ItemComponent key={x.name} item={x} />)
+          ).map((x) => <RecipeComponent key={x.name} recipe={x} />)
         }
       </ScrollView>
     </SafeAreaView>
@@ -70,15 +60,9 @@ const styles = StyleSheet.create({
 
   titleBar: {
     height: 50,
-    flexDirection: "row",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
     borderBottomWidth: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  innerTitle: {
-    flex: 1,
   }
 });

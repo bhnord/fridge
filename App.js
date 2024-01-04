@@ -11,6 +11,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import FridgeScreen from "./screens/FridgeScreen";
+import RecipesScreen from "./screens/RecipesScreen";
+import AddItemScreen from "./screens/AddItemScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -46,6 +48,8 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Help" component={HelpScreen} />
         <Stack.Screen name="Fridge" component={FridgeScreen} />
+        <Stack.Screen name="Recipes" component={RecipesScreen} />
+        <Stack.Screen name="AddItem" component={AddItemScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
