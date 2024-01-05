@@ -3,6 +3,10 @@ import React, { useState } from "react"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Dropdown } from "react-native-element-dropdown";
 
+
+type measurement = {
+  measurement: string;
+}
 const data = [
   { measurement: "container" },
   { measurement: "cup" },
@@ -17,21 +21,21 @@ const data = [
 export default function AddItemScreen() {
   const [itemName, setItemName] = useState("");
   const [itemAmt, setItemAmt] = useState("1");
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("");
 
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Text style={styles.title}>Pee Pee Poo Poo</Text>
+      <Text style={styles.title}> Pee Pee Poo Poo </Text>
       <View style={styles.item}>
         <TextInput
-          style={styles.itemInput}
+          style={styles.itemInputText}
           placeholder="enter here"
           onChangeText={newText => setItemName(newText)}
           defaultValue={itemName}
         />
         <TextInput
-          style={styles.itemInput}
+          style={styles.itemInputNumber}
           placeholder={itemAmt}
           keyboardType="numeric"
           onChangeText={newAmt => setItemAmt(newAmt.replace(/[^0-9]/g, ""))}
@@ -50,13 +54,11 @@ export default function AddItemScreen() {
           placeholder="container"
           searchPlaceholder="Search"
           value={value}
-          onChange={item => {
-            setValue(item.value);
-          }}
+          onChange={(item: measurement) => setValue(item.measurement)}
         />
       </View>
-      <View style={styles.addButton}>
-        <Button title="b" color="red" />
+      < View style={styles.addButton} >
+        <Button title="Add Item" color="red" />
       </View>
     </SafeAreaView>
   )
@@ -71,10 +73,26 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   item: {
-    flexDirection: "row"
+    marginBottom: 40,
+    width: "90%",
+    flexDirection: "row",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 30
   },
-  itemInput: {
-    margin: 20
+  itemInputText: {
+    width: "30%",
+    margin: 20,
+    padding: 10,
+    borderColor: "black",
+    borderWidth: 1
+  },
+  itemInputNumber: {
+    width: "15%",
+    margin: 20,
+    padding: 10,
+    borderColor: "black",
+    borderWidth: 1
   },
   dropdown: {
     margin: 16,
@@ -97,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   addButton: {
-    width: 40,
+    width: 90,
     height: 80
   }
 })

@@ -1,6 +1,9 @@
-import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { RootStackParamList } from "../App";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-export default function HomeScreen({ navigation }) {
+type HomeScreenNavigationProp = NativeStackScreenProps<RootStackParamList, "Home">;
+export default function HomeScreen({ navigation }: HomeScreenNavigationProp) {
   return (
     <View style={styles.container}>
       <Text>Home</Text>
@@ -23,13 +26,11 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: "block",
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
   },
   item: {
-    display: "block",
     padding: 20,
     margin: 1,
     alignItems: "center",
@@ -39,7 +40,4 @@ const styles = StyleSheet.create({
     width: "90%",
     borderRadius: 8,
   },
-  touch: {
-    display: "block",
-  }
 });

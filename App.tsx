@@ -1,21 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import {
-  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Button } from "react-native";
+import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import FridgeScreen from "./screens/FridgeScreen";
 import RecipesScreen from "./screens/RecipesScreen";
 import AddItemScreen from "./screens/AddItemScreen";
 
+export type RootStackParamList = {
+  Title: undefined,
+  Home: undefined,
+  Help: undefined,
+  Fridge: undefined,
+  Recipes: undefined,
+  AddItem: undefined,
+  navigate: undefined
+}
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function HelpScreen() {
   return (
@@ -25,7 +32,8 @@ function HelpScreen() {
   );
 }
 
-function IntroScreen({ navigation }) {
+type InfoScreenProps = NativeStackScreenProps<RootStackParamList, "Title">;
+function IntroScreen({ navigation }: InfoScreenProps) {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate("Home")}

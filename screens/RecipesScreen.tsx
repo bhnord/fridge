@@ -50,9 +50,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: StatusBar.currentHeight
   },
-  touch: {
-    display: "block",
-  },
   flatList: {
     paddingTop: 10,
     width: "100%",

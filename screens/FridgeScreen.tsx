@@ -1,5 +1,7 @@
 import { StyleSheet, Text, SafeAreaView, View, StatusBar, Button, TouchableOpacity, ScrollView } from "react-native";
 import ItemComponent from "../components/ItemComponent.js";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App.js";
 
 let items = [{
   name: "Cucumbers",
@@ -13,9 +15,8 @@ let items = [{
 },
 ]
 
-export default function FridgeScreen({ navigation }) {
-
-
+type FridgeScreenNavigationProp = NativeStackScreenProps<RootStackParamList, "Fridge">;
+export default function FridgeScreen({ navigation }: FridgeScreenNavigationProp) {
 
   //XXX: remove once testing is done
   for (let i = 0; i < 20; i++) {
@@ -59,9 +60,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingTop: StatusBar.currentHeight
-  },
-  touch: {
-    display: "block",
   },
   flatList: {
     paddingTop: 10,
