@@ -13,6 +13,9 @@ export default function HomeScreen({ navigation }) {
       <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("Help")}>
         <Text>Help</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("AddItem")}>
+        <Text>Add Item</Text>
+      </TouchableOpacity>
     </View>
   );
 }
