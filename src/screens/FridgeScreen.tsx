@@ -1,13 +1,13 @@
-import { StyleSheet, Text, SafeAreaView, View, StatusBar, Button, TouchableOpacity, ScrollView } from "react-native";
-import ItemComponent from "../components/ItemComponent.js";
+import { StyleSheet, Text, SafeAreaView, View, StatusBar, Button, ScrollView } from "react-native";
+import ItemComponent from "../components/ItemComponent";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../App.js";
-import { db, collection } from "../src/services/firebase";
+import { RootStackParamList } from "../../App";
+import { db, collection } from "../services/firebase";
 import { DocumentData, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 
-type Item = {
+export type Item = {
   name: string,
   quantity: number,
   unit: string

@@ -2,7 +2,7 @@ import { Text, View, TextInput, StyleSheet, Button, Alert } from "react-native"
 import React, { useState } from "react"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Dropdown } from "react-native-element-dropdown";
-import { db, collection, addDoc } from "../src/services/firebase";
+import { db, collection, addDoc } from "../services/firebase";
 
 type measurement = {
   measurement: string;

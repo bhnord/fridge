@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { RootStackParamList } from "../App";
+import { RootStackParamList } from "../../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type HomeScreenNavigationProp = NativeStackScreenProps<RootStackParamList, "Home">;

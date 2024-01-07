@@ -1,5 +1,5 @@
-import { StyleSheet, Text, SafeAreaView, View, StatusBar, Button, TouchableOpacity, ScrollView } from "react-native";
-import RecipeComponent from "../components/RecipeComponent.js";
+import { StyleSheet, Text, SafeAreaView, View, StatusBar, ScrollView } from "react-native";
+import RecipeComponent from "../components/RecipeComponent";
 
 let items = [{
   name: "Cucumbers Recipe",
@@ -11,19 +11,11 @@ let items = [{
 },
 ]
 
+export type Recipe = {
+  name: string,
+  extras: string
+}
 export default function RecipesScreen() {
-
-
-
-  for (let i = 0; i < 20; i++) {
-    items.push(
-      {
-        name: "Blueberry Jam Recipe",
-        extras: "jars"
-      }
-    )
-  }
-
 
 
   return (

@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import { getAuth } from "../src/services/firebase";
+import { getAuth } from "../services/firebase";
 
 import { useState } from "react";
 import { Button, TextInput, StyleSheet, Text, Alert } from "react-native";
@@ -33,13 +33,14 @@ export default function SignupScreen() {
     <SafeAreaView>
       <TextInput
         style={styles.textInput}
-        placeholder="enter here"
+        placeholder="Email"
         onChangeText={newText => setEmail(newText)}
         defaultValue={""}
       />
       <TextInput
         style={styles.textInput}
-        placeholder="enter here"
+        secureTextEntry
+        placeholder="Password"
         onChangeText={newText => setPassword(newText)}
         defaultValue={""}
       />

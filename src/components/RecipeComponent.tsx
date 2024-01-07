@@ -1,6 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Recipe } from "../screens/RecipesScreen";
 
-export default function RecipeComponent({ recipe }) {
+
+type RecipeComponentProps = {
+  recipe: Recipe
+}
+export default function RecipeComponent({ recipe }: RecipeComponentProps) {
   return (
     <View style={styles.container}>
       <TouchableOpacity>

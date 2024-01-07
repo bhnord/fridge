@@ -1,6 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
+import { Item } from "../screens/FridgeScreen";
 
-export default function ItemComponent({ item }) {
+type ItemComponentProps = {
+  item: Item
+}
+export default function ItemComponent({ item }: ItemComponentProps) {
   return (
     <View style={styles.container}>
       <View style={styles.item}>

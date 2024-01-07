@@ -7,12 +7,12 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./screens/HomeScreen";
-import FridgeScreen from "./screens/FridgeScreen";
-import RecipesScreen from "./screens/RecipesScreen";
-import AddItemScreen from "./screens/AddItemScreen";
-import SignupScreen from "./screens/SignupScreen";
-import SigninScreen from "./screens/SigninScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import FridgeScreen from "./src/screens/FridgeScreen";
+import RecipesScreen from "./src/screens/RecipesScreen";
+import AddItemScreen from "./src/screens/AddItemScreen";
+import SignupScreen from "./src/screens/SignupScreen";
+import SigninScreen from "./src/screens/SigninScreen";
 
 export type RootStackParamList = {
   Title: undefined,
