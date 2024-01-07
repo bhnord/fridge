@@ -2,32 +2,39 @@ import { StyleSheet, Text, SafeAreaView, View, StatusBar, Button, TouchableOpaci
 import ItemComponent from "../components/ItemComponent.js";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App.js";
+import { db, collection } from "../src/services/firebase";
+import { DocumentData, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
-let items = [{
-  name: "Cucumbers",
-  quantity: 3,
-  unit: "whole"
-},
-{
-  name: "Blueberry Jam",
-  quantity: 1,
-  unit: "jars"
-},
-]
+
+type Item = {
+  name: string,
+  quantity: number,
+  unit: string
+}
 
 type FridgeScreenNavigationProp = NativeStackScreenProps<RootStackParamList, "Fridge">;
 export default function FridgeScreen({ navigation }: FridgeScreenNavigationProp) {
 
-  //XXX: remove once testing is done
-  for (let i = 0; i < 20; i++) {
-    items.push(
-      {
-        name: "Blueberry Jam",
-        quantity: 1,
-        unit: "jars"
-      }
-    )
-  }
+  const [items, setItems] = useState<DocumentData>([])
+  const [update, setUpdate] = useState(0);
+
+  useEffect(() => {
+    const getItems = async () => {
+      const itemsRef = collection(db, 'item');
+      const snapshot = await getDocs(itemsRef);
+      let items: DocumentData[] = [];
+      snapshot.forEach(doc => {
+        console.log(doc.id, '=>', doc.data());
+        items.push(doc.data())
+      });
+      console.log(items);
+      setItems(items);
+    }
+
+    getItems();
+  }, [update])
+
 
 
 
@@ -44,9 +51,7 @@ export default function FridgeScreen({ navigation }: FridgeScreenNavigationProp)
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }} style={styles.flatList}>
         {
-          items.sort((a, b) =>
-            a.name.localeCompare(b.name)
-          ).map((x) => <ItemComponent key={x.name} item={x} />)
+          items.map((x: Item) => <ItemComponent key={x.name} item={x} />)
         }
       </ScrollView>
     </SafeAreaView>

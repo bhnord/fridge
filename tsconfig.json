@@ -18,7 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
-    "allowUnreachableCode": false
+    "allowUnreachableCode": false,
   },
   "exclude": [
     "node_modules",
@@ -27,5 +27,6 @@
     "jest.config.js"
 
   ],
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "expo/tsconfig.base",
+//  "extends": "@tsconfig/react-native/tsconfig.json",
 }

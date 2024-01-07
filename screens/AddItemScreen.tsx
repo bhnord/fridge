@@ -1,8 +1,8 @@
-import { Text, View, TextInput, StyleSheet, Button } from "react-native"
+import { Text, View, TextInput, StyleSheet, Button, Alert } from "react-native"
 import React, { useState } from "react"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Dropdown } from "react-native-element-dropdown";
-
+import { db, collection, addDoc } from "../src/services/firebase";
 
 type measurement = {
   measurement: string;
@@ -21,7 +21,27 @@ const data = [
 export default function AddItemScreen() {
   const [itemName, setItemName] = useState("");
   const [itemAmt, setItemAmt] = useState("1");
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("item");
+
+
+  //TODO: remove logs
+  const onSubmit = async () => {
+    if (itemName === "") {
+      Alert.alert("Missing item name");
+      return
+    }
+    try {
+      const docRef = await addDoc(collection(db, "item"), {
+        name: itemName,
+        quantity: itemAmt,
+        unit: value
+      })
+      console.log("Doc written with id: ", docRef.id)
+    } catch (error) {
+      console.error("Error adding document: ", error)
+    }
+  }
+
 
 
   return (
@@ -51,14 +71,14 @@ export default function AddItemScreen() {
           maxHeight={300}
           labelField="measurement"
           valueField="measurement"
-          placeholder="container"
+          placeholder="item"
           searchPlaceholder="Search"
           value={value}
           onChange={(item: measurement) => setValue(item.measurement)}
         />
       </View>
       < View style={styles.addButton} >
-        <Button title="Add Item" color="red" />
+        <Button title="Add Item" color="red" onPress={onSubmit} />
       </View>
     </SafeAreaView>
   )

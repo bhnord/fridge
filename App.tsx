@@ -11,6 +11,8 @@ import HomeScreen from "./screens/HomeScreen";
 import FridgeScreen from "./screens/FridgeScreen";
 import RecipesScreen from "./screens/RecipesScreen";
 import AddItemScreen from "./screens/AddItemScreen";
+import SignupScreen from "./screens/SignupScreen";
+import SigninScreen from "./screens/SigninScreen";
 
 export type RootStackParamList = {
   Title: undefined,
@@ -19,6 +21,8 @@ export type RootStackParamList = {
   Fridge: undefined,
   Recipes: undefined,
   AddItem: undefined,
+  Signup: undefined,
+  Signin: undefined,
   navigate: undefined
 }
 
@@ -58,6 +62,8 @@ export default function App() {
         <Stack.Screen name="Fridge" component={FridgeScreen} />
         <Stack.Screen name="Recipes" component={RecipesScreen} />
         <Stack.Screen name="AddItem" component={AddItemScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="Signin" component={SigninScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
