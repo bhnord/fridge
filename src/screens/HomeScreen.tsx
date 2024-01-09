@@ -22,8 +22,8 @@ export default function HomeScreen({ navigation }: HomeScreenNavigationProp) {
       <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("Signup")}>
         <Text>Signup</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("Signin")}>
-        <Text>Signin</Text>
+      <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("SignIn")}>
+        <Text>Sign In</Text>
       </TouchableOpacity>
     </View>
   );

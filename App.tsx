@@ -12,7 +12,7 @@ import FridgeScreen from "./src/screens/FridgeScreen";
 import RecipesScreen from "./src/screens/RecipesScreen";
 import AddItemScreen from "./src/screens/AddItemScreen";
 import SignupScreen from "./src/screens/SignupScreen";
-import SigninScreen from "./src/screens/SigninScreen";
+import SignInScreen from "./src/screens/SigninScreen";
 
 export type RootStackParamList = {
   Title: undefined,
@@ -63,7 +63,7 @@ export default function App() {
         <Stack.Screen name="Recipes" component={RecipesScreen} />
         <Stack.Screen name="AddItem" component={AddItemScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
-        <Stack.Screen name="Signin" component={SigninScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

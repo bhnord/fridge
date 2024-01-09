@@ -16,8 +16,6 @@ export type Recipe = {
   extras: string
 }
 export default function RecipesScreen() {
-
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleBar}>

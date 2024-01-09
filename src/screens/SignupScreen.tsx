@@ -14,7 +14,7 @@ export default function SignupScreen() {
   const auth = getAuth();
   const onRequestLogin = () => {
     if (email === "" || password === "") {
-      Alert.alert("bad email or pass");
+      Alert.alert("Invalid Email or Password", "Email and Password must be filled in");
       return
     }
     createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
@@ -24,7 +24,20 @@ export default function SignupScreen() {
     }).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.error(errorCode, errorMessage)
+      switch (errorCode) {
+        case "auth/weak-password":
+          Alert.alert("Weak password", "Password must be at least 6 characters");
+          break;
+        case "auth/invalid-email":
+          Alert.alert("Invalid Email", "Please use a valid email");
+          break;
+        case "auth/email-already-in-use":
+          Alert.alert("Account already exists", "Email already in use");
+          break;
+        default:
+          console.error(errorCode, errorMessage)
+      }
+
     })
   }
 
