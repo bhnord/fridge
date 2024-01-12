@@ -12,7 +12,14 @@ import FridgeScreen from "./src/screens/FridgeScreen";
 import RecipesScreen from "./src/screens/RecipesScreen";
 import AddItemScreen from "./src/screens/AddItemScreen";
 import SignupScreen from "./src/screens/SignupScreen";
-import SignInScreen from "./src/screens/SigninScreen";
+import SignInScreen from "./src/screens/SignInScreen";
+import UpdateItemScreen from "./src/screens/UpdateItemScreen";
+
+export type Item = {
+  name: string,
+  quantity: number,
+  unit: string
+}
 
 export type RootStackParamList = {
   Title: undefined,
@@ -23,8 +30,10 @@ export type RootStackParamList = {
   AddItem: undefined,
   SignUp: undefined,
   SignIn: undefined,
+  UpdateItem: { item: Item },
   navigate: undefined
 }
+
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -64,6 +73,7 @@ export default function App() {
         <Stack.Screen name="AddItem" component={AddItemScreen} />
         <Stack.Screen name="SignUp" component={SignupScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="UpdateItem" component={UpdateItemScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

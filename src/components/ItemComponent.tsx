@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { Item } from "../screens/FridgeScreen";
+import { Item } from "../../App";
 
 type ItemComponentProps = {
   item: Item

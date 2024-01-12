@@ -5,13 +5,9 @@ import { RootStackParamList } from "../../App";
 import { db, collection } from "../services/firebase";
 import { DocumentData, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { Item } from "../../App";
 
 
-export type Item = {
-  name: string,
-  quantity: number,
-  unit: string
-}
 
 type FridgeScreenNavigationProp = NativeStackScreenProps<RootStackParamList, "Fridge">;
 export default function FridgeScreen({ navigation }: FridgeScreenNavigationProp) {
@@ -25,10 +21,8 @@ export default function FridgeScreen({ navigation }: FridgeScreenNavigationProp)
       const snapshot = await getDocs(itemsRef);
       let items: DocumentData[] = [];
       snapshot.forEach(doc => {
-        console.log(doc.id, '=>', doc.data());
         items.push(doc.data())
       });
-      console.log(items);
       setItems(items);
     }
 
