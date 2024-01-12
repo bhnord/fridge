@@ -21,8 +21,8 @@ export type RootStackParamList = {
   Fridge: undefined,
   Recipes: undefined,
   AddItem: undefined,
-  Signup: undefined,
-  Signin: undefined,
+  SignUp: undefined,
+  SignIn: undefined,
   navigate: undefined
 }
 
@@ -62,7 +62,7 @@ export default function App() {
         <Stack.Screen name="Fridge" component={FridgeScreen} />
         <Stack.Screen name="Recipes" component={RecipesScreen} />
         <Stack.Screen name="AddItem" component={AddItemScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="SignUp" component={SignupScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
       </Stack.Navigator>
     </NavigationContainer>
