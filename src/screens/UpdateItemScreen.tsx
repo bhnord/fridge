@@ -35,7 +35,6 @@ export default function UpdateItemScreen({ navigation, route }: UpdateItemScreen
         />
         <Button title="but" onPress={updateItem} />
       </View>
-
     </SafeAreaView>
   )
 }

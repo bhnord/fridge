@@ -45,7 +45,7 @@ export default function FridgeScreen({ navigation }: FridgeScreenNavigationProp)
       </View>
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }} style={styles.flatList}>
         {
-          items.map((x: Item) => <ItemComponent key={x.name} item={x} />)
+          items.map((x: Item) => <ItemComponent key={x.name} item={x} navigation={navigation} />)
         }
       </ScrollView>
     </SafeAreaView>
