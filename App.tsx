@@ -1,12 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  NativeStackScreenProps,
+  createNativeStackNavigator,
+} from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import FridgeScreen from "./src/screens/FridgeScreen";
 import RecipesScreen from "./src/screens/RecipesScreen";
@@ -16,24 +14,28 @@ import SignInScreen from "./src/screens/SignInScreen";
 import UpdateItemScreen from "./src/screens/UpdateItemScreen";
 
 export type Item = {
-  name: string,
-  quantity: number,
-  unit: string
-}
+  name: string;
+  quantity: number;
+  unit: string;
+};
+
+export type ItemDoc = {
+  id: string;
+  item: Item;
+};
 
 export type RootStackParamList = {
-  Title: undefined,
-  Home: undefined,
-  Help: undefined,
-  Fridge: undefined,
-  Recipes: undefined,
-  AddItem: undefined,
-  SignUp: undefined,
-  SignIn: undefined,
-  UpdateItem: { item: Item },
-  navigate: undefined
-}
-
+  Title: undefined;
+  Home: undefined;
+  Help: undefined;
+  Fridge: undefined;
+  Recipes: undefined;
+  AddItem: undefined;
+  SignUp: undefined;
+  SignIn: undefined;
+  UpdateItem: { itemDoc: ItemDoc };
+  navigate: undefined;
+};
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
