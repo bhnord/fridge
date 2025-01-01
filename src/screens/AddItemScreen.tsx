@@ -1,12 +1,14 @@
-import { Text, View, TextInput, StyleSheet, Button, Alert } from "react-native"
-import React, { useState } from "react"
+import { Text, View, TextInput, StyleSheet, Button, Alert } from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Dropdown } from "react-native-element-dropdown";
 import { db, collection, addDoc } from "../services/firebase";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ItemDoc, RootStackParamList } from "../../App";
 
 type measurement = {
   measurement: string;
-}
+};
 const data = [
   { measurement: "container" },
   { measurement: "cup" },
@@ -15,50 +17,52 @@ const data = [
   { measurement: "tbsp" },
   { measurement: "tsp" },
   { measurement: "whole" },
+];
 
-]
-
-export default function AddItemScreen() {
+type AddItemScreenNavigationProp = NativeStackScreenProps<
+  RootStackParamList,
+  "AddItem"
+>;
+export default function AddItemScreen({
+  navigation,
+}: AddItemScreenNavigationProp) {
   const [itemName, setItemName] = useState("");
   const [itemAmt, setItemAmt] = useState("1");
   const [value, setValue] = useState("item");
-
 
   //TODO: remove logs
   const onSubmit = async () => {
     if (itemName === "") {
       Alert.alert("Missing item name");
-      return
+      return;
     }
     try {
       const docRef = await addDoc(collection(db, "item"), {
         name: itemName,
         quantity: itemAmt,
-        unit: value
-      })
-      console.log("Doc written with id: ", docRef.id)
+        unit: value,
+      });
+      navigation.goBack();
     } catch (error) {
-      console.error("Error adding document: ", error)
+      console.error("Error adding document: ", error);
     }
-  }
-
-
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Text style={styles.title}> Pee Pee Poo Poo </Text>
+      <Text style={styles.title}> Add Item </Text>
       <View style={styles.item}>
         <TextInput
           style={styles.itemInputText}
           placeholder="enter here"
-          onChangeText={newText => setItemName(newText)}
+          onChangeText={(newText) => setItemName(newText)}
           defaultValue={itemName}
         />
         <TextInput
           style={styles.itemInputNumber}
           placeholder={itemAmt}
           keyboardType="numeric"
-          onChangeText={newAmt => setItemAmt(newAmt.replace(/[^0-9]/g, ""))}
+          onChangeText={(newAmt) => setItemAmt(newAmt.replace(/[^0-9]/g, ""))}
           defaultValue={itemAmt}
         />
         <Dropdown
@@ -77,20 +81,20 @@ export default function AddItemScreen() {
           onChange={(item: measurement) => setValue(item.measurement)}
         />
       </View>
-      < View style={styles.addButton} >
+      <View style={styles.addButton}>
         <Button title="Add Item" color="red" onPress={onSubmit} />
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    alignItems: "center"
+    alignItems: "center",
   },
   title: {
     margin: 80,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   item: {
     marginBottom: 40,
@@ -98,28 +102,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderColor: "black",
     borderWidth: 1,
-    borderRadius: 30
+    borderRadius: 30,
   },
   itemInputText: {
     width: "30%",
     margin: 20,
     padding: 10,
     borderColor: "black",
-    borderWidth: 1
+    borderWidth: 1,
   },
   itemInputNumber: {
     width: "15%",
     margin: 20,
     padding: 10,
     borderColor: "black",
-    borderWidth: 1
+    borderWidth: 1,
   },
   dropdown: {
     margin: 16,
     height: 50,
-    borderBottomColor: 'gray',
+    borderBottomColor: "gray",
     borderBottomWidth: 0.5,
-    width: "25%"
+    width: "25%",
   },
   icon: {
     marginRight: 5,
@@ -136,6 +140,6 @@ const styles = StyleSheet.create({
   },
   addButton: {
     width: 90,
-    height: 80
-  }
-})
+    height: 80,
+  },
+});

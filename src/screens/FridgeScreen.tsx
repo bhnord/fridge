@@ -12,6 +12,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ItemDoc, RootStackParamList } from "../../App";
 import { useEffect, useState } from "react";
 import { getItems } from "../services/api";
+import { useIsFocused } from "@react-navigation/native";
 
 type FridgeScreenNavigationProp = NativeStackScreenProps<
   RootStackParamList,
@@ -23,13 +24,14 @@ export default function FridgeScreen({
   const [items, setItems] = useState<ItemDoc[]>([]);
   const [update, setUpdate] = useState("");
 
+  const isFocused = useIsFocused();
   useEffect(() => {
     const waitForItems = async () => {
       let items = await getItems();
       setItems(items);
     };
-    waitForItems();
-  }, [update]);
+    isFocused && waitForItems();
+  }, [isFocused, update]);
 
   const onItemDelete = (id: string) => {
     setUpdate(id);

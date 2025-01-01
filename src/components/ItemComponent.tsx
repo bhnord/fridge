@@ -24,14 +24,16 @@ export default function ItemComponent({
     navigation.navigate("UpdateItem", { itemDoc });
   };
   const item = itemDoc.item;
+
+  //TODO: do this better
   const longPressEvent = () => {
     console.log("hi");
     Alert.alert("Delete Item?", "Do you want to delete item: " + item.name, [
       { text: "No" },
       {
         text: "Yes",
-        onPress: () => {
-          deleteItem(itemDoc);
+        onPress: async () => {
+          await deleteItem(itemDoc);
           onDelete(itemDoc.id);
         },
       },
