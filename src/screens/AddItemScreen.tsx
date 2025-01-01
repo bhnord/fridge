@@ -1,10 +1,11 @@
 import { Text, View, TextInput, StyleSheet, Button, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Dropdown } from "react-native-element-dropdown";
 import { db, collection, addDoc } from "../services/firebase";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ItemDoc, RootStackParamList } from "../../App";
+import nutritionapi from "../services/nutritionapi";
 
 type measurement = {
   measurement: string;
@@ -30,7 +31,16 @@ export default function AddItemScreen({
   const [itemAmt, setItemAmt] = useState("1");
   const [value, setValue] = useState("item");
 
-  //TODO: remove logs
+  const [nutrition, setNutrition] = useState("");
+
+  useEffect(() => {
+    const k = async () => {
+      let r = await nutritionapi.getResults("grape");
+      console.warn(r);
+      setNutrition(r.toString());
+    };
+    k();
+  });
   const onSubmit = async () => {
     if (itemName === "") {
       Alert.alert("Missing item name");
@@ -50,7 +60,7 @@ export default function AddItemScreen({
 
   return (
     <SafeAreaView style={styles.screen}>
-      <Text style={styles.title}> Add Item </Text>
+      <Text style={styles.title}> {nutrition} </Text>
       <View style={styles.item}>
         <TextInput
           style={styles.itemInputText}
