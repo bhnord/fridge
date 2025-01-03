@@ -6,19 +6,12 @@ import { db, collection, addDoc } from "../services/firebase";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ItemDoc, RootStackParamList } from "../../App";
 import nutritionapi from "../services/nutritionapi";
-
-type measurement = {
-  measurement: string;
-};
-const data = [
-  { measurement: "container" },
-  { measurement: "cup" },
-  { measurement: "item" },
-  { measurement: "jar" },
-  { measurement: "tbsp" },
-  { measurement: "tsp" },
-  { measurement: "whole" },
-];
+import {
+  BrandedItemResponse,
+  CommonItemResponse,
+  Nutrition,
+} from "../services/nutritionix";
+import DropDownPicker, { ItemType } from "react-native-dropdown-picker";
 
 type AddItemScreenNavigationProp = NativeStackScreenProps<
   RootStackParamList,
@@ -29,28 +22,23 @@ export default function AddItemScreen({
 }: AddItemScreenNavigationProp) {
   const [itemName, setItemName] = useState("");
   const [itemAmt, setItemAmt] = useState("1");
-  const [value, setValue] = useState("item");
 
-  const [nutrition, setNutrition] = useState("");
+  const [itemSearch, setItemSearch] = useState<ItemType<string>[]>([
+    { label: "test", value: "test" },
+  ]);
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const k = async () => {
-      let r = await nutritionapi.getResults("grape");
-      console.warn(r);
-      setNutrition(r.toString());
-    };
-    k();
-  });
   const onSubmit = async () => {
     if (itemName === "") {
       Alert.alert("Missing item name");
       return;
     }
     try {
+      let nutrition: Nutrition = await nutritionapi.getNutrition(itemName);
       const docRef = await addDoc(collection(db, "item"), {
         name: itemName,
-        quantity: itemAmt,
-        unit: value,
+        grams: itemAmt,
+        nutrition: nutrition,
       });
       navigation.goBack();
     } catch (error) {
@@ -58,37 +46,43 @@ export default function AddItemScreen({
     }
   };
 
+  const onTyping = async (text: string) => {
+    //TODO: HANDLE TEXT
+    if (text.length > 3) {
+      let res = await nutritionapi.fetchFoodSearch(text); //only support common right now
+      let search = res.common;
+      let items = search.map((i: CommonItemResponse) => {
+        return { label: i.food_name, value: i.food_name };
+      });
+      setItemSearch(items);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.screen}>
-      <Text style={styles.title}> {nutrition} </Text>
+      <Text style={styles.title}> Add Item </Text>
       <View style={styles.item}>
-        <TextInput
-          style={styles.itemInputText}
-          placeholder="enter here"
-          onChangeText={(newText) => setItemName(newText)}
-          defaultValue={itemName}
-        />
+        <View style={styles.itemInputText}>
+          <DropDownPicker
+            containerStyle={{ flex: 1, zIndex: open ? 9 : -1 }}
+            open={open}
+            setOpen={setOpen}
+            value={itemName}
+            setValue={setItemName}
+            items={itemSearch}
+            setItems={setItemSearch}
+            multiple={false}
+            searchable={true}
+            searchPlaceholder="Search"
+            onChangeSearchText={onTyping}
+          />
+        </View>
         <TextInput
           style={styles.itemInputNumber}
           placeholder={itemAmt}
           keyboardType="numeric"
           onChangeText={(newAmt) => setItemAmt(newAmt.replace(/[^0-9]/g, ""))}
           defaultValue={itemAmt}
-        />
-        <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          data={data}
-          search
-          maxHeight={300}
-          labelField="measurement"
-          valueField="measurement"
-          placeholder="item"
-          searchPlaceholder="Search"
-          value={value}
-          onChange={(item: measurement) => setValue(item.measurement)}
         />
       </View>
       <View style={styles.addButton}>
@@ -101,32 +95,32 @@ export default function AddItemScreen({
 const styles = StyleSheet.create({
   screen: {
     alignItems: "center",
+    height: "100%",
   },
   title: {
     margin: 80,
     alignSelf: "center",
   },
   item: {
-    marginBottom: 40,
-    width: "90%",
     flexDirection: "row",
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 30,
+    justifyContent: "space-between",
+    flex: 1,
   },
   itemInputText: {
-    width: "30%",
-    margin: 20,
-    padding: 10,
+    maxWidth: "75%",
     borderColor: "black",
-    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
   },
   itemInputNumber: {
-    width: "15%",
-    margin: 20,
-    padding: 10,
     borderColor: "black",
     borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 40,
+    height: 40,
+    textAlign: "center",
   },
   dropdown: {
     margin: 16,
@@ -149,7 +143,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   addButton: {
+    position: "absolute",
     width: 90,
     height: 80,
+    bottom: 10,
   },
 });
