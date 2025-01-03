@@ -15,13 +15,22 @@ import UpdateItemScreen from "./src/screens/UpdateItemScreen";
 
 export type Item = {
   name: string;
-  quantity: number;
-  unit: string;
+  grams: number;
+  nutrition: ItemNutrition | undefined;
 };
 
 export type ItemDoc = {
   id: string;
   item: Item;
+};
+
+export type ItemNutrition = {
+  calories: number;
+  fat: number;
+  name: string;
+  protein: number;
+  serving: number;
+  sugar: number;
 };
 
 export type RootStackParamList = {

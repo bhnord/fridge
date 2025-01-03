@@ -51,10 +51,10 @@ export default function ItemComponent({
           <Text>{item.name}</Text>
         </View>
         <View style={styles.item}>
-          <Text>{item.quantity}</Text>
+          <Text>{item.grams}</Text>
         </View>
         <View style={styles.item}>
-          <Text>{item.unit}</Text>
+          <Text>grams</Text>
         </View>
       </View>
     </TouchableOpacity>

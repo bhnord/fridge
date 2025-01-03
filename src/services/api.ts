@@ -10,8 +10,8 @@ const getItems = async (): Promise<ItemDoc[]> => {
     const data = doc.data();
     const item: Item = {
       name: data.name,
-      quantity: data.quantity,
-      unit: data.unit,
+      grams: data.grams,
+      nutrition: data.nutrition,
     };
     const itemDoc: ItemDoc = { id: doc.id, item: item };
     items.push(itemDoc);

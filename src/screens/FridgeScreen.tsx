@@ -23,11 +23,26 @@ export default function FridgeScreen({
 }: FridgeScreenNavigationProp) {
   const [items, setItems] = useState<ItemDoc[]>([]);
   const [update, setUpdate] = useState("");
+  const [totalNutrition, setTotalNutrition] = useState({
+    calories: 0,
+    protein: 0,
+  });
 
   const isFocused = useIsFocused();
   useEffect(() => {
     const waitForItems = async () => {
       let items = await getItems();
+      let totalCal = 0;
+      let totalProtein = 0;
+      for (let docItem of items) {
+        let item = docItem.item;
+        if (item.nutrition !== undefined) {
+          totalCal += item.nutrition.calories * item.grams;
+          totalProtein += item.nutrition.protein * item.grams;
+        }
+      }
+      setTotalNutrition({ calories: totalCal, protein: totalProtein });
+      console.log(totalNutrition);
       setItems(items);
     };
     isFocused && waitForItems();
@@ -42,6 +57,7 @@ export default function FridgeScreen({
       <View style={styles.titleBar}>
         <View style={styles.innerTitle}>
           <Text>My Fridge:</Text>
+          <Text>{`Calories: ${totalNutrition.calories.toFixed(2)}kcal, Protein: ${totalNutrition.protein.toFixed(2)}g`}</Text>
         </View>
         <View style={styles.innerTitle} />
         <View style={styles.innerTitle}>
